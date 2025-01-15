@@ -16,11 +16,11 @@ def test_auditlog_access_decorator(is_decorated):
     info = MagicMock()
     info.context.user = "testuser"
 
-    ModelType = LoggedTestModelType if is_decorated else TestModelType
+    model_type = LoggedTestModelType if is_decorated else TestModelType
 
     # Call the get_node method with the decorated class
     with patch("auditlog.signals.accessed.send") as mock_send:
-        test_model = ModelType.get_node(info, 999)
+        test_model = model_type.get_node(info, 999)
 
     if is_decorated:
         # Assert that accessed.send was called with the correct arguments

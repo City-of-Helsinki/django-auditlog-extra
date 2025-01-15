@@ -46,7 +46,7 @@ class AuditLogConfigurationHelper:
     def print_app_models(cls) -> None:
         """Prints all models in the project to the console."""
         for model in cls.get_app_models():
-            print(cls.get_app_model_key(model))
+            print(cls.get_app_model_key(model))  # noqa: T201
 
     @classmethod
     def get_excluded_by_default(cls):

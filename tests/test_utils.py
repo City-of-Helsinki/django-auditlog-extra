@@ -97,7 +97,7 @@ def test_raise_error_if_unconfigured_models_no_error(settings):
     try:
         AuditLogConfigurationHelper.raise_error_if_unconfigured_models()
     except ImproperlyConfigured:
-        assert False, "Should not raise ImproperlyConfigured"
+        raise AssertionError("Should not raise ImproperlyConfigured")
 
 
 def test_raise_error_if_unconfigured_models(settings):
