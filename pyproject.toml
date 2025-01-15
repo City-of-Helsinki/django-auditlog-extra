@@ -40,7 +40,7 @@ Homepage = "https://github.com/City-of-Helsinki/django-auditlog-extra"
 Issues = "https://github.com/City-of-Helsinki/django-auditlog-extra/issues"
 
 [project.optional-dependencies]
-test = ["pytest < 5.0.0"]
+test = ["pytest", "pytest-django"]
 
 [build-system]
 requires = ["hatchling"]
