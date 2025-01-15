@@ -32,12 +32,15 @@ classifiers = [
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
 ]
 license = "MIT"
-license-files = ["LICEN[CS]E*"]
+license-files = ["LICENSE"]
 dependencies = ["django>=4.2", "django-auditlog>=3.0.0"]
 
 [project.urls]
 Homepage = "https://github.com/City-of-Helsinki/django-auditlog-extra"
 Issues = "https://github.com/City-of-Helsinki/django-auditlog-extra/issues"
+
+[project.optional-dependencies]
+test = ["pytest < 5.0.0"]
 
 [build-system]
 requires = ["hatchling"]
