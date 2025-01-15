@@ -1,0 +1,50 @@
+[project]
+name = "django-auditlog-extra"
+version = "0.1.0"
+authors = [{ name = "City of Helsinki", email = "dev@hel.fi" }]
+description = "A module that fixes some issues and provides some reusable tools for Django application using `django-auditlog` in the context of City of Helsinki."
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = [
+    "django",
+    "auditlog",
+    "graphene",
+    "rest framework",
+    "extra tools",
+    "plugin extrension",
+]
+classifiers = [
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+dependencies = ["django>=4.2", "django-auditlog>=3.0.0"]
+
+[project.urls]
+Homepage = "https://github.com/City-of-Helsinki/django-auditlog-extra"
+Issues = "https://github.com/City-of-Helsinki/django-auditlog-extra/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+include = ["auditlog_extra/*.py"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["auditlog_extra"]
