@@ -3,8 +3,8 @@ from auditlog.models import LogEntry
 from django.apps import apps
 from django.core.exceptions import ImproperlyConfigured
 
-from tests.models import DummyTestModel
 from auditlog_extra.utils import AuditLogConfigurationHelper
+from tests.models import DummyTestModel
 
 
 @pytest.mark.parametrize(
