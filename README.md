@@ -170,7 +170,7 @@ Optionally, you can also use a configuration utility that helps you configure al
 
 ### Context manager
 
-Code reference: [context.py](./context.py).
+Code reference: [context.py](./auditlog_extra/context.py).
 
 #### `set_request_path`
 
@@ -186,7 +186,7 @@ NOTE: This is used by the [`AuditlogMiddleware`](#middleware).
 
 ### Middleware
 
-Code reference: [middleware.py](./middleware.py).
+Code reference: [middleware.py](./auditlog_extra/middleware.py).
 
 #### `AuditlogMiddleware`
 
@@ -220,7 +220,7 @@ MIDDLEWARE = [
 
 ### Graphene Decorators
 
-Code reference: [graphene_decorators.py](./graphene_decorators.py).
+Code reference: [graphene_decorators.py](./auditlog_extra/graphene_decorators.py).
 
 #### `auditlog_access`
 
@@ -252,7 +252,7 @@ class ChildNode(DjangoObjectType):
 
 ### Mixins
 
-Code reference: [mixins.py](./mixins.py).
+Code reference: [mixins.py](./auditlog_extra/mixins.py).
 
 #### `AuditlogAdminViewAccessLogMixin`
 
@@ -288,7 +288,7 @@ class MyModelAdmin(AuditlogAdminViewAccessLogMixin, admin.ModelAdmin):
 
 ### Utilities
 
-Code reference: [utils.py](./utils.py).
+Code reference: [utils.py](./auditlog_extra/utils.py).
 
 #### `AuditLogConfigurationHelper`
 
