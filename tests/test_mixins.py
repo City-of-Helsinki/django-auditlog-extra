@@ -12,7 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.test import RequestFactory
 
 from auditlog_extra.mixins import AuditlogAdminViewAccessLogMixin
-from auditlog_extra.tests.models import DummyTestModel
+from tests.models import DummyTestModel
 
 User = get_user_model()
 

@@ -5,8 +5,8 @@ import pytest
 from auditlog_extra.graphene_decorators import (
     logger as auditlog_decorators_logger,
 )
-from auditlog_extra.tests.models import DummyTestModel
-from auditlog_extra.tests.schema import LoggedTestModelType, TestModelType
+from tests.models import DummyTestModel
+from tests.schema import LoggedTestModelType, TestModelType
 
 
 @pytest.mark.parametrize("is_decorated", [True, False])

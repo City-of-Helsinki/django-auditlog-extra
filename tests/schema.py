@@ -1,5 +1,5 @@
 from auditlog_extra.graphene_decorators import auditlog_access
-from auditlog_extra.tests.models import DummyTestModel
+from tests.models import DummyTestModel
 
 
 class DjangoObjectType:

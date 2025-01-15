@@ -3,7 +3,7 @@ from auditlog.models import LogEntry
 from django.apps import apps
 from django.core.exceptions import ImproperlyConfigured
 
-from auditlog_extra.tests.models import DummyTestModel
+from tests.models import DummyTestModel
 from auditlog_extra.utils import AuditLogConfigurationHelper
 
 

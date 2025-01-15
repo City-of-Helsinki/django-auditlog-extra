@@ -76,5 +76,6 @@ select = [
 extend-per-file-ignores = { "./tests/*" = ["E501"] }
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "tests.test_settings"
+pythonpath = "."
+DJANGO_SETTINGS_MODULE = "tests.settings"
 norecursedirs = [".git", "venv"]
