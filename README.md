@@ -23,6 +23,21 @@ A module that fixes some issues and provides some reusable tools for Django appl
   - [Utilities](#utilities)
     - [`AuditLogConfigurationHelper`](#auditlogconfigurationhelper)
       - [Initialization examples for `AuditLogConfigurationHelper`:](#initialization-examples-for-auditlogconfigurationhelper)
+- [Development](#development)
+  - [Development tools installation](#development-tools-installation)
+  - [Code linting & formatting](#code-linting--formatting)
+  - [Pre-commit hooks](#pre-commit-hooks)
+  - [Testing](#testing)
+    - [pytest](#pytest)
+    - [tox](#tox)
+- [Releases](#releases)
+  - [Build tool](#build-tool)
+  - [Conventional Commits](#conventional-commits)
+  - [Releasable units](#releasable-units)
+  - [Configuration](#configuration)
+  - [Troubleshoting release-please](#troubleshoting-release-please)
+    - [Fix merge conflicts by running release-please -action manually](#fix-merge-conflicts-by-running-release-please--action-manually)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -36,7 +51,7 @@ A module that fixes some issues and provides some reusable tools for Django appl
 >
 > Docs: https://django-auditlog.readthedocs.io/en/latest/index.html.
 
-The `Django-auditlog` is a reusable app for Django that makes logging changes to your models a breeze. It provides a simple and efficient way to track who made changes to your data and when. This is crucial for accountability, debugging, and compliance with regulations like GDPR.
+The `django-auditlog` is a reusable app for Django that makes logging changes to your models a breeze. It provides a simple and efficient way to track who made changes to your data and when. This is crucial for accountability, debugging, and compliance with regulations like GDPR.
 
 > NOTE: The `django-auditlog` is supported by the **Platta structured log transfer utility** (https://github.com/City-of-Helsinki/structured-log-transfer).
 
@@ -380,7 +395,7 @@ AuditLogConfigurationHelper.raise_error_if_unconfigured_models()
       def ready(self):
             # Implicitly connect signal handlers decorated with @receiver.
             from . import signals
-            
+
             # OR
             # Explicitly connect a signal handler.
             # from django.core.signals import post_migrate
@@ -388,3 +403,168 @@ AuditLogConfigurationHelper.raise_error_if_unconfigured_models()
   ```
 
   Reference: https://docs.djangoproject.com/en/5.1/topics/signals/#listening-to-signals.
+
+## Development
+
+### Development tools installation
+
+To install development tools, run
+
+```bash
+pip install .[test]
+```
+
+### Code linting & formatting
+
+This project uses [ruff](https://github.com/astral-sh/ruff) for Python code linting and formatting.
+Ruff is configured through [pyproject.toml](./pyproject.toml).
+Basic `ruff` commands:
+
+- Check linting: `ruff check`
+- Check & auto-fix linting: `ruff check --fix`
+- Format: `ruff format`
+
+Integrations for `ruff` are available for many editors:
+
+- https://docs.astral.sh/ruff/integrations/
+
+### Pre-commit hooks
+
+You can use [`pre-commit`](https://pre-commit.com/) to lint and format your code before committing:
+
+1. Install `pre-commit` (there are many ways to do that, but let's use pip as an example):
+   - `pip install pre-commit`
+2. Set up git hooks from `.pre-commit-config.yaml` by running these commands from project root:
+   - `pre-commit install` to enable pre-commit code formatting & linting
+   - `pre-commit install --hook-type commit-msg` to enable pre-commit commit message linting
+
+After that, linting and formatting hooks will run against all changed files before committing.
+
+Git commit message linting is configured in [.gitlint](./.gitlint)
+
+### Testing
+
+This project uses pytest for unit testing and tox for managing different testing environments.
+
+#### pytest
+
+To run the tests using pytest, execute the following command in your terminal:
+
+```bash
+pytest
+```
+
+This will run all the tests in the `tests` directory.  You can specify individual test files or directories using command-line arguments.  For example, to run tests in a specific directory:
+
+```bash
+pytest tests/test_utils.py
+```
+
+
+#### tox
+
+Tox is used to manage different testing environments.  It allows you to run your tests in various Python versions and with different dependencies.  The `tox.ini` file defines the different environments.  To run tests using tox, execute:
+
+```bash
+tox
+```
+
+This will run the tests defined in the `tox.ini` file.  Each environment will be created and the tests will be run within that environment.  This ensures that your code works correctly across different Python versions and dependency configurations.  You can specify individual environments using command-line arguments.  For example, to run tests in the `py39` environment (Python v3.9):
+
+```bash
+tox -e py39
+```
+
+For more information on pytest and tox, refer to their respective documentations:
+
+- pytest: [https://docs.pytest.org/en/7.4.x/](https://docs.pytest.org/en/7.4.x/)
+- tox: [https://tox.wiki/en/latest/](https://tox.wiki/en/latest/)
+
+
+## Releases
+
+The application follows semantic versioning and is released using [Release Please](https://github.com/googleapis/release-please) GitHub Action.
+
+A new release is created by merging a release PR, which is automatically generated by the Release Please action. Once the PR is merged, Release Please automatically creates a new release with release notes and a corresponding tag. The release PR is updated automatically whenever new code is merged into the main branch. Release Please maintains the changelog based on conventional commits.
+
+### Build tool
+
+This project uses [Hatchling](https://hatch.pypa.io/latest/) for building and packaging.
+
+To build the package, run:
+
+```bash
+hatch build
+```
+
+This will create a distribution package (wheel and sdist) in the `dist` directory.  The wheel package is optimized for faster installation.
+
+To build only a wheel:
+
+```bash
+hatch build --wheel
+```
+
+To build only an sdist:
+
+```bash
+hatch build --sdist
+```
+
+> For more information on Hatchling build options, refer to the Hatchling documentation: [https://hatch.pypa.io/latest/build/](https://hatch.pypa.io/latest/build/)
+
+To publish to Pypi:
+
+```bash
+hatch publish
+```
+
+> For more information on Hatchling build options, refer to the Hatchling documentation: [https://hatch.pypa.io/latest/publish/](https://hatch.pypa.io/latest/publish/)
+
+### Conventional Commits
+
+Use [Conventional Commits](https://www.conventionalcommits.org/) to ensure that the changelogs are generated correctly.
+
+### Releasable units
+
+Release please goes through commits and tries to find "releasable units" using commit messages as guidance - it will then add these units to their respective release PR's and figures out the version number from the types: `fix` for patch, `feat` for minor, `feat!` for major. None of the other types will be included in the changelog. So, you can use for example `chore` or `refactor` to do work that does not need to be included in the changelog and won't bump the version.
+
+### Configuration
+
+The release-please workflow is located in the [release-please.yml](./.github/workflows/release-please.yml) file.
+
+The configuration for release-please is located in the [release-please-config.json](./release-please-config.json) file.
+See all the options here: [release-please docs](https://github.com/googleapis/release-please/blob/main/docs/manifest-releaser.md).
+
+The manifest file is located in the [release-please-manifest.json](./.release-please-manifest.json) file.
+
+When adding a new app, add it to both the [release-please-config.json](./release-please-config.json) and [release-please-manifest.json](./.release-please-manifest.json) file with the current version of the app. After this, release-please will keep track of versions with [release-please-manifest.json](./.release-please-manifest.json).
+
+### Troubleshoting release-please
+
+If you were expecting a new release PR to be created or old one to be updated, but nothing happened, there's probably one of the older release PR's in pending state or action didn't run.
+
+1. Check if the release action ran for the last merge to main. If it didn't, run the action manually with a label.
+2. Check if there's any open release PR. If there is, the work is now included on this one (this is the normal scenario).
+3. If you do not see any open release PR related to the work, check if any of the closed PR's are labeled with `autorelease: pending` - ie. someone might have closed a release PR manually. Change the closed PR's label to `autorelease: tagged`. Then go and re-run the last merge workflow to trigger the release action - a new release PR should now appear.
+4. Finally check the output of the release action. Sometimes the bot can't parse the commit message and there is a notification about this in the action log. If this happens, it won't include the work in the commit either. You can fix this by changing the commit message to follow the [Conventional Commits](https://www.conventionalcommits.org/) format and rerun the action.
+
+**Important!** If you have closed a release PR manually, you need to change the label of closed release PR to `autorelease: tagged`. Otherwise, the release action will not create a new release PR.
+
+**Important!** Extra label will force release-please to re-generate PR's. This is done when action is run manually with prlabel -option
+
+Sometimes there might be a merge conflict in release PR - this should resolve itself on the next push to main. It is possible run release-please action manually with label, it should recreate the PR's. You can also resolve it manually, by updating the [release-please-manifest.json](./.release-please-manifest.json) file.
+
+#### Fix merge conflicts by running release-please -action manually
+
+1. Open [release-please github action](https://github.com/City-of-Helsinki/django-auditlog-extra/actions/workflows/release-please.yml)
+2. Click **Run workflow**
+3. Check Branch is **main**
+4. Leave label field empty. New label is not needed to fix merge issues
+5. Click **Run workflow** -button
+
+There's also a CLI for debugging and manually running releases available for release-please: [release-please-cli](https://github.com/googleapis/release-please/blob/main/docs/cli.md)
+
+## License
+
+See [LICENSE](./LICENSE).
