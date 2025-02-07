@@ -12,6 +12,8 @@ A module that fixes some issues and provides some reusable tools for Django appl
 - [FAQ](#faq)
 - [Installation](#installation)
 - [Features](#features)
+  - [Signals](#signals)
+    - [`update_log_entry_additional_data_with_is_sent`](#update_log_entry_additional_data_with_is_sent)
   - [Context manager](#context-manager)
     - [`set_request_path`](#set_request_path)
   - [Middleware](#middleware)
@@ -180,8 +182,25 @@ MIDDLEWARE = [
 
 Optionally, you can also use a configuration utility that helps you configure all the models: [How to initialize the Auditlog Configuration helper](#initialization-examples-for-auditlogconfigurationhelper).
 
-
 ## Features
+
+### Signals
+
+Code reference: [signals.py](./auditlog_extra/signals.py).
+
+#### `update_log_entry_additional_data_with_is_sent`
+
+    Sets the `is_sent` key in the `additional_data` dictionary of a new LogEntry
+    instance to False.
+
+    This function is intended to be used as a signal receiver for the `pre_save` signal
+    of the `LogEntry` model. It is designed to modify the `additional_data` field
+    of newly created LogEntry instances before they are saved to the database.
+
+    This is a requirement of https://github.com/City-of-Helsinki/structured-log-transfer.
+    When the structured log transfer tool finishes handling the data,
+    it will then mark the LogEntry as sent (by updating
+    `additional_data["is_sent"]=True`).
 
 ### Context manager
 
@@ -454,22 +473,21 @@ To run the tests using pytest, execute the following command in your terminal:
 pytest
 ```
 
-This will run all the tests in the `tests` directory.  You can specify individual test files or directories using command-line arguments.  For example, to run tests in a specific directory:
+This will run all the tests in the `tests` directory. You can specify individual test files or directories using command-line arguments. For example, to run tests in a specific directory:
 
 ```bash
 pytest tests/test_utils.py
 ```
 
-
 #### tox
 
-Tox is used to manage different testing environments.  It allows you to run your tests in various Python versions and with different dependencies.  The `tox.ini` file defines the different environments.  To run tests using tox, execute:
+Tox is used to manage different testing environments. It allows you to run your tests in various Python versions and with different dependencies. The `tox.ini` file defines the different environments. To run tests using tox, execute:
 
 ```bash
 tox
 ```
 
-This will run the tests defined in the `tox.ini` file.  Each environment will be created and the tests will be run within that environment.  This ensures that your code works correctly across different Python versions and dependency configurations.  You can specify individual environments using command-line arguments.  For example, to run tests in the `py39` environment (Python v3.9):
+This will run the tests defined in the `tox.ini` file. Each environment will be created and the tests will be run within that environment. This ensures that your code works correctly across different Python versions and dependency configurations. You can specify individual environments using command-line arguments. For example, to run tests in the `py39` environment (Python v3.9):
 
 ```bash
 tox -e py39
@@ -479,7 +497,6 @@ For more information on pytest and tox, refer to their respective documentations
 
 - pytest: [https://docs.pytest.org/en/7.4.x/](https://docs.pytest.org/en/7.4.x/)
 - tox: [https://tox.wiki/en/latest/](https://tox.wiki/en/latest/)
-
 
 ## Releases
 
@@ -497,7 +514,7 @@ To build the package, run:
 hatch build
 ```
 
-This will create a distribution package (wheel and sdist) in the `dist` directory.  The wheel package is optimized for faster installation.
+This will create a distribution package (wheel and sdist) in the `dist` directory. The wheel package is optimized for faster installation.
 
 To build only a wheel:
 
