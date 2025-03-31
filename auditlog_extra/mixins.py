@@ -55,7 +55,7 @@ class AuditlogAdminViewAccessLogMixin:
         if self.enable_list_view_audit_logging and request.method == "GET":
             changelist = super().get_changelist_instance(request)
             for obj in changelist.result_list:
-                accessed.send(sender=obj.__class__, instance=obj, actor=request.user)
+                accessed.send(sender=obj.__class__, instance=obj)
         return response
 
     def get_object(self, request, object_id, from_field=None):
@@ -82,7 +82,7 @@ class AuditlogAdminViewAccessLogMixin:
         if obj is not None and not getattr(
             request, self._request_obj_accessed_sent_key
         ):
-            accessed.send(sender=obj.__class__, instance=obj, actor=request.user)
+            accessed.send(sender=obj.__class__, instance=obj)
             # get_object can be called multiple times,
             # so prevent signalling the accessed,
             # if it has already been signalled.

@@ -24,9 +24,7 @@ def test_auditlog_access_decorator(is_decorated):
 
     if is_decorated:
         # Assert that accessed.send was called with the correct arguments
-        mock_send.assert_called_once_with(
-            sender=DummyTestModel, instance=test_model, actor="testuser"
-        )
+        mock_send.assert_called_once_with(sender=DummyTestModel, instance=test_model)
     else:
         mock_send.assert_not_called()
 
