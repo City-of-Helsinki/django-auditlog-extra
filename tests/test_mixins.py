@@ -1,4 +1,3 @@
-from typing import List, Optional
 from unittest import mock
 
 import pytest
@@ -60,7 +59,7 @@ def factory():
 def model_admin(all_objects):
     (obj1, obj2) = all_objects
 
-    def get_model_admin(result_list: Optional[List] = None, **kwargs):
+    def get_model_admin(result_list: list | None = None, **kwargs):
         class MockedChangeList(ChangeList):
             show_full_result_count = False
 

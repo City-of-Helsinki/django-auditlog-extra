@@ -1,5 +1,3 @@
-from typing import List, Set
-
 from auditlog.registry import auditlog
 from django.apps import apps
 from django.conf import settings
@@ -23,7 +21,7 @@ class AuditLogConfigurationHelper:
     """
 
     @staticmethod
-    def get_app_models() -> List[ModelBase]:
+    def get_app_models() -> list[ModelBase]:
         """
         Fetch all models in your Django project, including those automatically
         created by Django (like those for user accounts or sessions).
@@ -39,7 +37,7 @@ class AuditLogConfigurationHelper:
         return f"{model._meta.app_label}.{model._meta.model_name}"
 
     @staticmethod
-    def get_model_classes(app_model: str) -> List[ModelBase]:
+    def get_model_classes(app_model: str) -> list[ModelBase]:
         return auditlog._get_model_classes(app_model)
 
     @classmethod
@@ -50,17 +48,17 @@ class AuditLogConfigurationHelper:
 
     @classmethod
     def get_excluded_by_default(cls):
-        return set(
+        return {
             cls.get_model_classes(app_model)[0]
             for app_model in auditlog.DEFAULT_EXCLUDE_MODELS
-        )
+        }
 
     @classmethod
-    def get_excluded_models(cls) -> Set[ModelBase]:
+    def get_excluded_models(cls) -> set[ModelBase]:
         """
         Returns a set of models that are explicitly excluded from audit logging.
         """
-        excluded_models: Set[ModelBase] = set()
+        excluded_models: set[ModelBase] = set()
         if (
             hasattr(settings, "AUDITLOG_INCLUDE_ALL_MODELS")
             and settings.AUDITLOG_INCLUDE_ALL_MODELS
@@ -74,7 +72,7 @@ class AuditLogConfigurationHelper:
         return excluded_models | cls.get_excluded_by_default()
 
     @classmethod
-    def get_included_models(cls) -> Set[ModelBase]:
+    def get_included_models(cls) -> set[ModelBase]:
         """Returns a set of models in included mapping for audit logging."""
         included_models = []
         models = getattr(settings, "AUDITLOG_INCLUDE_TRACKING_MODELS", [])
@@ -88,7 +86,7 @@ class AuditLogConfigurationHelper:
         return set(included_models)
 
     @classmethod
-    def get_unconfigured_models(cls) -> Set[ModelBase]:
+    def get_unconfigured_models(cls) -> set[ModelBase]:
         """
         Returns a set of models that are neither registered nor excluded
         from audit logging.

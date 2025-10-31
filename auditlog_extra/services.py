@@ -1,5 +1,3 @@
-from typing import Optional
-
 from auditlog.models import LogEntry
 
 
@@ -8,7 +6,7 @@ class AuditLogContextService:
 
     @staticmethod
     def set_request_path_to_additional_data(
-        log_entry: LogEntry, request_path: Optional[str]
+        log_entry: LogEntry, request_path: str | None
     ):
         """
         Add the request path to the `additional_data` field of a LogEntry.

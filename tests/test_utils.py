@@ -35,10 +35,10 @@ def test_get_excluded_models(excluded_model_apps, settings):
     excluded_models = AuditLogConfigurationHelper.get_excluded_models()
     assert (
         excluded_models - AuditLogConfigurationHelper.get_excluded_by_default()
-    ) == set(
+    ) == {
         AuditLogConfigurationHelper.get_model_classes(model_app)[0]
         for model_app in excluded_model_apps
-    )
+    }
 
 
 @pytest.mark.parametrize(
@@ -54,10 +54,10 @@ def test_get_included_models(included_model_apps, settings):
     settings.AUDITLOG_INCLUDE_ALL_MODELS = True
     settings.AUDITLOG_INCLUDE_TRACKING_MODELS = included_model_apps
     included_models = AuditLogConfigurationHelper.get_included_models()
-    assert included_models == set(
+    assert included_models == {
         AuditLogConfigurationHelper.get_model_classes(model_app)[0]
         for model_app in included_model_apps
-    )
+    }
 
 
 def test_get_unconfigured_models(settings):
