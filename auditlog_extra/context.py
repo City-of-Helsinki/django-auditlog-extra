@@ -2,7 +2,7 @@ import contextlib
 import time
 from contextvars import ContextVar
 from functools import partial
-from typing import Any, Optional, Type
+from typing import Any
 
 from auditlog.context import auditlog_value
 from auditlog.models import LogEntry
@@ -14,7 +14,7 @@ auditlog_request_context_value = ContextVar("auditlog_value_request")
 
 
 @contextlib.contextmanager
-def set_request_path(request_path: Optional[str] = None):
+def set_request_path(request_path: str | None = None):
     """
     Store the request path in the LogEntry's `additional_data` field.
 
@@ -55,7 +55,7 @@ def set_request_path(request_path: Optional[str] = None):
 
 
 def _set_request_path(
-    sender: Type[LogEntry], instance: LogEntry, signal_duid: Any, **kwargs
+    sender: type[LogEntry], instance: LogEntry, signal_duid: Any, **kwargs
 ):
     """
     Signal receiver to add the request path to LogEntry.additional_data.
