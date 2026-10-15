@@ -100,6 +100,7 @@ Django Graphene is a library that integrates the Django web framework with Graph
 > Docs: https://www.django-rest-framework.org/.
 
 Django REST framework is a powerful and flexible toolkit that makes it easier to build Web REST APIs using the Django framework.
+For Django 6.1 projects, confirm that your selected Django REST framework release supports Django 6.1.
 
 ## FAQ
 
@@ -108,6 +109,7 @@ There have been some incompatibility issues with `django-auditlog` and `django-g
 ## Installation
 
 Requires Python 3.11 or later.
+Supports Django 5.2, 6.0, and 6.1.
 
 **Dependencies:**
 For actor handling, django-auditlog and test usage:
