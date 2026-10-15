@@ -108,6 +108,7 @@ There have been some incompatibility issues with `django-auditlog` and `django-g
 ## Installation
 
 Requires Python 3.11 or later.
+Supports Django 5.2 and 6.0.
 
 **Dependencies:**
 For actor handling, django-auditlog and test usage:
