@@ -8,7 +8,7 @@ version = "0.1.0"
 authors = [{ name = "City of Helsinki", email = "dev@hel.fi" }]
 description = "A module that fixes some issues and provides some reusable tools for Django application using `django-auditlog` in the context of City of Helsinki."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 keywords = [
     "django",
     "auditlog",
@@ -28,7 +28,6 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -73,7 +72,7 @@ dependencies = [
     "pre-commit",
 ]
 features = ["all"]
-python = "3.10"
+python = "3.11"
 
 [tool.hatch.envs.default.scripts]
 test = "pytest {args}"
@@ -90,7 +89,7 @@ parallel = false
 randomize = true
 
 [[tool.hatch.envs.hatch-test.matrix]]
-python = ["3.10", "3.11", "3.12", "3.13", "3.14"]
+python = ["3.11", "3.12", "3.13", "3.14"]
 django = ["5.2"]
 
 [[tool.hatch.envs.hatch-test.matrix]]
@@ -116,7 +115,7 @@ dependencies = [
 ]
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 
 [tool.ruff.lint]
 select = [

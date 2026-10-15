@@ -107,6 +107,8 @@ There have been some incompatibility issues with `django-auditlog` and `django-g
 
 ## Installation
 
+Requires Python 3.11 or later.
+
 **Dependencies:**
 For actor handling, django-auditlog and test usage:
 
@@ -487,10 +489,10 @@ Tox is used to manage different testing environments. It allows you to run your 
 tox
 ```
 
-This will run the tests defined in the `tox.ini` file. Each environment will be created and the tests will be run within that environment. This ensures that your code works correctly across different Python versions and dependency configurations. You can specify individual environments using command-line arguments. For example, to run tests in the `py310` environment (Python v3.10):
+This will run the tests defined in the `tox.ini` file. Each environment will be created and the tests will be run within that environment. This ensures that your code works correctly across different Python versions and dependency configurations. You can specify individual environments using command-line arguments. For example, to run tests in the `py311` environment (Python v3.11):
 
 ```bash
-tox -e py310
+tox -e py311
 ```
 
 For more information on pytest and tox, refer to their respective documentations:
